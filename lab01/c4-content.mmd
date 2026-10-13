@@ -1,0 +1,50 @@
+
+flowchart TB
+    analyst["Head-office Analyst<br/>[Person]<br/>Views and exports reports"]
+    manager["Branch Manager<br/>[Person]<br/>Views reports for own branch only"]
+    director["Finance Director<br/>[Person]<br/>Receives report-ready notification"]
+    
+    system["Angkor Mart Monthly Sales Report System<br/>[Software System]<br/>Loads sales data and generates monthly reports"]
+    
+    pos["Branch POS Systems<br/>[External System, x3]<br/>Exports daily branch sales CSV files"]
+    email["E-mail Service<br/>[External System]<br/>Delivers report-ready notifications"]
+
+    analyst -->|"Views and exports reports"| system
+    manager -->|"Views own branch report"| system
+    system -->|"Sends report-ready notification"| director
+    pos -->|"Uploads daily CSV files [SFTP]"| system
+    system -->|"Sends notification [SMTP]"| email
+    email -->|"Delivers notification e-mail"| director
+
+    classDef person fill:#08427b,color:#ffffff,stroke:#052e56
+    classDef system fill:#1168bd,color:#ffffff,stroke:#0b4884
+    classDef external fill:#8a8a8a,color:#ffffff,stroke:#6b6b6b
+
+    class analyst,manager,director person
+    class system system
+    class pos,email external
+
+flowchart TB
+    analyst["Head-office Analyst<br/>[Person]<br/>Views and exports reports"]
+    manager["Branch Manager<br/>[Person]<br/>Views reports for own branch only"]
+    director["Finance Director<br/>[Person]<br/>Receives report-ready notification"]
+    
+    system["Angkor Mart Monthly Sales Report System<br/>[Software System]<br/>Loads sales data and generates monthly reports"]
+    
+    pos["Branch POS Systems<br/>[External System, x3]<br/>Exports daily branch sales CSV files"]
+    email["E-mail Service<br/>[External System]<br/>Delivers report-ready notifications"]
+
+    analyst -->|"Views and exports reports"| system
+    manager -->|"Views own branch report"| system
+    system -->|"Sends report-ready notification"| director
+    pos -->|"Uploads daily CSV files [SFTP]"| system
+    system -->|"Sends notification [SMTP]"| email
+    email -->|"Delivers notification e-mail"| director
+
+    classDef person fill:#08427b,color:#ffffff,stroke:#052e56
+    classDef system fill:#1168bd,color:#ffffff,stroke:#0b4884
+    classDef external fill:#8a8a8a,color:#ffffff,stroke:#6b6b6b
+
+    class analyst,manager,director person
+    class system system
+    class pos,email external

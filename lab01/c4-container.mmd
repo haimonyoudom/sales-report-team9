@@ -1,0 +1,39 @@
+
+flowchart TB
+    subgraph system["Angkor Mart Monthly Sales Report System"]
+        landing[("CSV Landing Zone<br/>[File System]<br/>Stores daily branch files")]
+        ingest["Ingest Job<br/>[Java 25 Batch Process]<br/>Validates and loads CSV rows"]
+        engine["Report Batch<br/>[Java 25 Application]<br/>Calculates revenue and summaries"]
+        store[("Report Store<br/>[Relational Database]<br/>Stores generated report data")]
+        desktop["Desktop Report Viewer<br/>[JavaFX Application]<br/>Lets analysts view and export reports"]
+        web["Branch Report Page<br/>[Web Application]<br/>Displays authorized branch reports"]
+        notify["Notification Component<br/>[Java 25 Module]<br/>Requests report-ready e-mails"]
+    end
+
+    pos["Branch POS Systems<br/>[External System, x3]"]
+    email["E-mail Service<br/>[External System]"]
+    analyst["Head-office Analyst<br/>[Person]"]
+    manager["Branch Manager<br/>[Person]"]
+    director["Finance Director<br/>[Person]"]
+
+    pos -->|"Uploads daily CSV [SFTP]"| landing
+    landing -->|"Reads CSV files [file system]"| ingest
+    ingest -->|"Passes validated transactions [in-process call]"| engine
+    engine -->|"Writes report data [SQL/JDBC]"| store
+    desktop -->|"Queries reports [SQL/JDBC]"| store
+    web -->|"Queries authorized reports [SQL/JDBC]"| store
+    engine -->|"Signals report ready [in-process call]"| notify
+    notify -->|"Sends e-mail [SMTP]"| email
+    email -->|"Delivers notification"| director
+    analyst -->|"Views and exports reports [desktop UI]"| desktop
+    manager -->|"Views own branch report [HTTPS]"| web
+
+    classDef person fill:#08427b,color:#ffffff,stroke:#052e56
+    classDef external fill:#8a8a8a,color:#ffffff,stroke:#6b6b6b
+    classDef app fill:#1168bd,color:#ffffff,stroke:#0b4884
+    classDef data fill:#38761d,color:#ffffff,stroke:#274e13
+
+    class analyst,manager,director person
+    class pos,email external
+    class ingest,engine,desktop,web,notify app
+    class landing,store data
