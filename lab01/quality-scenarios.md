@@ -32,3 +32,18 @@
 - A4: users are authenticated by a login system provided by head office.
 - A5: release 1 produces txt, html and csv; PDF and Excel come in Lab-08.
 
+## Utility tree
+```mermaid
+flowchart LR
+  U((Utility)) --> P[Performance]
+  U --> S[Scalability]
+  U --> A[Availability]
+  U --> M[Modifiability]
+  U --> X[Security]
+  U --> T[Testability]
+  P --> QA1["QA-1 (H,H) month of 3 M rows in 60 s or less"]
+  S --> QA2["QA-2 (M,M) 4th branch adds at most 35 % run time"]
+  A --> QA3["QA-3 (H,M) REP file 2 h late: others out by 07:00"]
+  M --> QA4["QA-4 (H,L) new export format in 2 days or less"]
+  X --> QA5["QA-5 (H,M) manager sees own branch only"]
+  T --> QA6["QA-6 (M,L) engine tests run in 30 s or less"]
